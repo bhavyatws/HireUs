@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Task1",
+        "Senior_hours": 8,
+        "Junior_hours": 0
+    },
+    {
+        "name": "Task2",
+        "Senior_hours": 8,
+        "Junior_hours": 14
+    }
+]
+ 
+
+[
+    {
+        "ratio": 10,
+        "total_hours": 134,
+        "senior_tasks": [
+            {
+                "name": "Task1",
+                "hours": 8,
+            },
+            {
+                "name": "Task5",
+                "hours": 6,
+            },
+            {
+                "name": "Task8",
+                "hours": 2,
+            }
+        ],
+        "junior_tasks": [
+            {
+                "name": "Task2",
+                "hours": 14,
+            },
+            {
+                "name": "Task3",
+                "hours": 16,
+            },
+            {
+                "name": "Task4",
+                "hours": 12,
+            },
+            {
+                "name": "Task6",
+                "hours": 18,
+            },
+            {
+                "name": "Task7",
+                "hours": 24,
+            },
+            {
+                "name": "Task9",
+                "hours": 10,
+            },
+            {
+                "name": "Task10",
+                "hours": 24,
+            }
+        ]
+    },
+    {
+        "ratio": 20,
+        "senior_tasks": [],
+        "junior_tasks": []
+    },
+    {
+        "ratio": 30,
+        "senior_tasks": [],
+        "junior_tasks": []
+    },
+    {
+        "ratio": 40,
+        "senior_tasks": [],
+        "junior_tasks": []
+    }
+]
