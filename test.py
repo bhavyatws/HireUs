@@ -9,7 +9,7 @@ task=[
     'juniors':0
     },
     {'task2':'task2',
-        'seniors':8,
+        'seniors':12,
         'juniors':14
     },
     {   'task3':'task3',
@@ -45,7 +45,13 @@ task=[
         'juniors':24
     },
    
+   
 ]
+def custom_round(number):
+    rounded = round(number/10)*10
+    return rounded
+
+
 senior_task=[]
 junior_task=[]
 total_hours_seniors=0
@@ -66,7 +72,7 @@ print(total_hours_seniors)
 # print("Junior task",junior_task)
 
 #sorting junior_task
-sorted_junior_task=sorted(junior_task, key = lambda i: (i['juniors']))
+sorted_junior_task=sorted(junior_task, key = lambda i: (i['juniors']),reverse=True)
 print(sorted_junior_task)
 copy_junior_task=sorted_junior_task.copy()
 
@@ -103,6 +109,26 @@ def calculation_ratio(senior_task,sorted_junior_task):
 
 calculated_ratio=calculation_ratio(senior_task,sorted_junior_task)
 print(calculated_ratio)
+
+thrs=0
+thjr=0
+for tsk in senior_task:
+    
+    thrs=thrs+tsk['seniors']
+for tsk in sorted_junior_task:
+    thjr=thjr+tsk['juniors']
+print(thrs,thjr)
+
+def check_ratio(thrs,thjr):
+    
+    total=thrs+thjr
+    print(total)
+    # calculated_ratio=(thrs/(total))*100
+    calculated_ratio=(thrs/total)*100
+    return calculated_ratio,total
+
+y=(check_ratio(thrs,thjr))
+print(y)
 # print("Total:",calculated_ratio)
 in_ratio=int(input("Enter ratio you want senior:junior:"))
 
@@ -112,52 +138,63 @@ assigned_task=[]
 
 
 
-if calculated_ratio[0]==in_ratio:
+# if calculated_ratio[0]==in_ratio:
+if custom_round(y[0])==in_ratio:
         final_task['total_time']=calculated_ratio[1]
         # print(final_task)
         final_task['senior_task']=senior_task
         final_task['junior_task']=sorted_junior_task
         assigned_task.append(final_task)
         # print(senior_task)
-        print(calculated_ratio)
+        # print(calculated_ratio)
 
 else:
     print(len(junior_task))
     print(f'junior_task={junior_task}')
     for n in range(len(sorted_junior_task)):
+        popped=sorted_junior_task.pop()
+        senior_task.append(popped)
         
-        # print("Tsk++++",tsk)
-        if n not in range(len(senior_task)):
-            senior_task.append( copy_junior_task[n])
-            # sorted_junior_task.pop(n)
-            
+        thjr=0
+        for tsk in sorted_junior_task:
+            thjr=thjr+tsk['juniors']
+        
+        thrs=0
+        for tsk in senior_task:
+    
+            thrs=thrs+tsk['seniors']
+       
+        y=(check_ratio(thrs,thjr) )
+        print("Checking Ratio",y[0] )
             
 
-        print("Append",y)
-        print(range(len(sorted_junior_task)))
-        if n   in range(len(sorted_junior_task)):
-           
-            print("popping")
-            sorted_junior_task.pop(n)
-            print("After popping",sorted_junior_task)
         
-        # calculating_senior_hours()
-        # print(calculating_senior_hours)
-        print(len(senior_task),len(sorted_junior_task))
-        calculated_ratio=calculation_ratio(senior_task,sorted_junior_task)
-        print("Calculated_Ratio:",calculated_ratio)
-        if calculated_ratio[0]==in_ratio:
-            final_task['total_time']=calculated_ratio[1]
+        if custom_round(y[0])==in_ratio:
+            final_task['ratio']=y[0]
+            final_task['total_time']=y[1]
             # print(final_task)
             final_task['senior_task']=senior_task
             final_task['junior_task']=sorted_junior_task
             assigned_task.append(final_task)
-            # print(senior_task)
-            print(calculated_ratio)
-            # print(len(senior_task))
+            # print(calculated_ratio)
             break
+            
+           
+          
+        # if round(y[0])>=in_ratio:
+        #     final_task['ratio']=y[0]
+        #     final_task['total_time']=y[1]
+        #     # print(final_task)
+        #     final_task['senior_task']=senior_task
+        #     final_task['junior_task']=sorted_junior_task
+        #     assigned_task.append(final_task)
+        #     print(calculated_ratio)
+          
+
         
 # for tsk in junior_task:
 #     print(tsk)
 print(json.dumps(assigned_task,indent=4))
+
+
 
