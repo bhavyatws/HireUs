@@ -1,4 +1,3 @@
-
 import json
 
 
@@ -130,47 +129,49 @@ def check_ratio(thrs,thjr):
 y=(check_ratio(thrs,thjr))
 print(y)
 # print("Total:",calculated_ratio)
-in_ratio=int(input("Enter ratio you want senior:junior:"))
+# in_ratio=int(input("Enter ratio you want senior:junior:"))
+in_ratio=[10,20,30,40]
+
 
 
 
 final_task={}
 assigned_task=[]
 
-
+for i in range(len(in_ratio)):
 
 # if calculated_ratio[0]==in_ratio:
-if custom_round(y[0])==in_ratio:
-        final_task['total_time']=final_task['total_time']=y[1]
-        # print(final_task)
-        final_task['senior_task']=senior_task
-        final_task['junior_task']=sorted_junior_task
-        assigned_task.append(final_task)
-        # print(senior_task)
-        # print(calculated_ratio)
+    if custom_round(y[0])==in_ratio[i]:
+            final_task['total_time']=y[1]
+            # print(final_task)
+            final_task['senior_task']=senior_task
+            final_task['junior_task']=sorted_junior_task
+            assigned_task.append(final_task)
+            # print(senior_task)
+            # print(calculated_ratio)
 
-else:
-    print(len(junior_task))
-    print(f'junior_task={junior_task}')
-    for n in range(len(sorted_junior_task)):
-        popped=sorted_junior_task.pop()
-        senior_task.append(popped)
+    else:
+        print(len(junior_task))
+        print(f'junior_task={junior_task}')
+        for n in range(len(sorted_junior_task)):
+            popped=sorted_junior_task.pop()
+            senior_task.append(popped)
+            
+            thjr=0
+            for tsk in sorted_junior_task:
+                thjr=thjr+tsk['juniors']
+            
+            thrs=0
+            for tsk in senior_task:
         
-        thjr=0
-        for tsk in sorted_junior_task:
-            thjr=thjr+tsk['juniors']
+                thrs=thrs+tsk['seniors']
         
-        thrs=0
-        for tsk in senior_task:
-    
-            thrs=thrs+tsk['seniors']
-       
-        y=(check_ratio(thrs,thjr) )
-        print("Checking Ratio",y[0] )
+            y=(check_ratio(thrs,thjr) )
+            print("Checking Ratio",y[0] )
             
 
         
-        if custom_round(y[0])==in_ratio:
+        if custom_round(y[0])==in_ratio[i]:
             final_task['ratio']=y[0]
             final_task['total_time']=y[1]
             # print(final_task)
@@ -196,6 +197,3 @@ else:
 # for tsk in junior_task:
 #     print(tsk)
 print(json.dumps(assigned_task,indent=4))
-
-
-
