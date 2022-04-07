@@ -70,13 +70,12 @@ for tsk in task:
     else:
         junior_task.append(tsk)
 
-print(total_hours_juniors)
-print(total_hours_seniors)
+
 # print("Junior task",junior_task)
 
 #sorting junior_task
 sorted_junior_task=sorted(junior_task, key = lambda i: (i['juniors']),reverse=True)
-print(sorted_junior_task)
+
 
 
 def calculate_thrs_thjr():
@@ -88,13 +87,14 @@ def calculate_thrs_thjr():
     for tsk in sorted_junior_task:
         thjr=thjr+tsk['juniors']
     return thrs,thjr
+
 thrs_thjr=calculate_thrs_thjr()
-print("thrs,thjr",thrs_thjr)
+
 
 def check_ratio(thrs,thjr):
     
     total=thrs+thjr
-    print(total)
+   
    
     calculated_ratio=(thrs/total)*100
     return calculated_ratio,total
@@ -107,7 +107,7 @@ in_ratio=[10,20,30,40]
 
 
 
-
+#function to calculate hireus ration on the basis of input_list
    
 def hireus(in_ratio):
     final_task={}
@@ -135,8 +135,7 @@ def hireus(in_ratio):
             thrs_thjr=calculate_thrs_thjr()
             
             y=(check_ratio(thrs_thjr[0],thrs_thjr[1]) )
-            print("Total time:",y[1])
-            print("Checking Ratio",custom_round(y[0]) )
+           
             
 
         
@@ -157,15 +156,6 @@ def hireus(in_ratio):
     return assigned_task               
                 
     
-    
-                
-                
-            
-
-               
-            
-         
-           
 #final result
            
 package_list=[]         
