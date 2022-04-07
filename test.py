@@ -159,11 +159,13 @@ else:
         thjr=0
         for tsk in sorted_junior_task:
             thjr=thjr+tsk['juniors']
+        print(thjr)
         
         thrs=0
         for tsk in senior_task:
     
             thrs=thrs+tsk['seniors']
+        print(thrs)
        
         y=(check_ratio(thrs,thjr) )
         print("Checking Ratio",y[0] )

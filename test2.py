@@ -1,4 +1,7 @@
+#Python Script to calculate ratio senior vs junior in terms of %
+
 import json
+
 
 
 
@@ -46,6 +49,7 @@ task=[
    
    
 ]
+#Custom round function which round 11,12,13,14 to 10
 def custom_round(number):
     rounded = round(number/10)*10
     return rounded
@@ -73,127 +77,102 @@ print(total_hours_seniors)
 #sorting junior_task
 sorted_junior_task=sorted(junior_task, key = lambda i: (i['juniors']),reverse=True)
 print(sorted_junior_task)
-copy_junior_task=sorted_junior_task.copy()
 
-def calculating_senior_hours(senior_task):
-    print("length",len(senior_task))
-    total_senior_task_only=0
+
+def calculate_thrs_thjr():
+    thrs=0
+    thjr=0
     for tsk in senior_task:
         
-        total_senior_task_only=total_senior_task_only+tsk['seniors']
-        # total_senior_task_only=total_hours_seniors
-    # print(total_senior_task_only)
-    return  total_senior_task_only
-
-y=calculating_senior_hours(senior_task)
-print(y)
-def calculating_juniors_hours(sorted_junior_task):
-    print("len junior",len(sorted_junior_task))
-    total_junior_task_only=0
+        thrs=thrs+tsk['seniors']
     for tsk in sorted_junior_task:
-        
-        total_junior_task_only=total_hours_juniors+tsk['juniors']
-    # print(total_senior_task_only)
-    return  total_junior_task_only
-y=calculating_juniors_hours(sorted_junior_task)
-print(y)
-
-def calculation_ratio(senior_task,sorted_junior_task):
-    total_senior_task_only=calculating_senior_hours(senior_task)
-    total_junior_task_only=calculating_juniors_hours(sorted_junior_task)
-    total=total_senior_task_only+total_junior_task_only
-    
-    calculated_ratio=round((total_senior_task_only/(total))*100)
-    return calculated_ratio,total
-
-calculated_ratio=calculation_ratio(senior_task,sorted_junior_task)
-print(calculated_ratio)
-
-thrs=0
-thjr=0
-for tsk in senior_task:
-    
-    thrs=thrs+tsk['seniors']
-for tsk in sorted_junior_task:
-    thjr=thjr+tsk['juniors']
-print(thrs,thjr)
+        thjr=thjr+tsk['juniors']
+    return thrs,thjr
+thrs_thjr=calculate_thrs_thjr()
+print("thrs,thjr",thrs_thjr)
 
 def check_ratio(thrs,thjr):
     
     total=thrs+thjr
     print(total)
-    # calculated_ratio=(thrs/(total))*100
+   
     calculated_ratio=(thrs/total)*100
     return calculated_ratio,total
 
-y=(check_ratio(thrs,thjr))
-print(y)
-# print("Total:",calculated_ratio)
-# in_ratio=int(input("Enter ratio you want senior:junior:"))
+y=(check_ratio(thrs_thjr[0],thrs_thjr[1]))
+
 in_ratio=[10,20,30,40]
 
 
 
 
-final_task={}
-assigned_task=[]
 
-for i in range(len(in_ratio)):
 
-# if calculated_ratio[0]==in_ratio:
-    if custom_round(y[0])==in_ratio[i]:
+   
+def hireus(in_ratio):
+    final_task={}
+    assigned_task=[]
+    package={}
+    # global assigned_task
+    global thrs_thjr
+    y=(check_ratio(thrs_thjr[0],thrs_thjr[1]))
+    global sorted_junior_task
+    if custom_round(y[0])==in_ratio:
             final_task['total_time']=y[1]
-            # print(final_task)
+            final_task['ratio']=custom_round(y[0])
             final_task['senior_task']=senior_task
             final_task['junior_task']=sorted_junior_task
             assigned_task.append(final_task)
-            # print(senior_task)
-            # print(calculated_ratio)
+           
 
     else:
-        print(len(junior_task))
-        print(f'junior_task={junior_task}')
+       
         for n in range(len(sorted_junior_task)):
             popped=sorted_junior_task.pop()
-            senior_task.append(popped)
-            
-            thjr=0
-            for tsk in sorted_junior_task:
-                thjr=thjr+tsk['juniors']
-            
-            thrs=0
-            for tsk in senior_task:
-        
-                thrs=thrs+tsk['seniors']
-        
-            y=(check_ratio(thrs,thjr) )
-            print("Checking Ratio",y[0] )
-            
-
-        
-        if custom_round(y[0])==in_ratio[i]:
-            final_task['ratio']=y[0]
-            final_task['total_time']=y[1]
-            # print(final_task)
-            final_task['senior_task']=senior_task
-            final_task['junior_task']=sorted_junior_task
-            assigned_task.append(final_task)
-            # print(calculated_ratio)
-            break
-            
            
-          
-        # if round(y[0])>=in_ratio:
-        #     final_task['ratio']=y[0]
-        #     final_task['total_time']=y[1]
-        #     # print(final_task)
-        #     final_task['senior_task']=senior_task
-        #     final_task['junior_task']=sorted_junior_task
-        #     assigned_task.append(final_task)
-        #     print(calculated_ratio)
-          
+            senior_task.append(popped)
+           
+            thrs_thjr=calculate_thrs_thjr()
+            
+            y=(check_ratio(thrs_thjr[0],thrs_thjr[1]) )
+            print("Total time:",y[1])
+            print("Checking Ratio",custom_round(y[0]) )
+            
 
         
-# for tsk in junior_task:
-#     print(tsk)
-print(json.dumps(assigned_task,indent=4))
+            if custom_round(y[0])==in_ratio:
+                final_task['ratio']=custom_round(y[0])
+                final_task['total_time']=y[1]
+                
+                final_task['senior_task']=senior_task
+               
+               
+                final_task['junior_task']=sorted_junior_task
+               
+                package['Package']=final_task
+               
+                assigned_task.append(package)
+                break
+ 
+    return assigned_task               
+                
+    
+    
+                
+                
+            
+
+               
+            
+         
+           
+#final result
+           
+package_list=[]         
+for i in in_ratio:  
+    result=hireus(i)  
+    
+    package_list.append(result)
+ 
+
+print(json.dumps(package_list,indent=4))
